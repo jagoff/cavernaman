@@ -14,7 +14,9 @@
 //   }
 //
 // Compression is applied to:
-//   - "description" fields in tools/list, prompts/list, resources/list responses
+//   - every "description" field in tools/list, prompts/list, resources/list
+//     responses — including NESTED inputSchema.properties.*.description, which
+//     are the bulk of large tool schemas and are sent on every tools/list (v3)
 //   - tools/call result.content[].text items that read as PROSE (v2)
 //   - same boundaries as caveman-compress: code, URLs, paths, identifiers preserved
 //
@@ -90,7 +92,6 @@ function transformResponse(msg) {
   // detect by the presence of a tools/prompts/resources array.
   if (!msg || !msg.result || typeof msg.result !== 'object') return msg;
   const r = msg.result;
-  let compressedSomething = false;
 
   // tools/call response shape: { result: { content: [ {type, text}, ... ] } }.
   // Compress only prose text items; structured/non-text passes through.
@@ -102,7 +103,6 @@ function transformResponse(msg) {
       const out = compress(before).compressed;
       if (out !== before) {
         item.text = out;
-        compressedSomething = true;
         if (debug) {
           process.stderr.write(
             `[caveman-shrink] result.content.text: ${before.length}→${out.length} bytes\n`
@@ -115,32 +115,25 @@ function transformResponse(msg) {
     return msg;
   }
 
-  for (const arrayName of ['tools', 'prompts', 'resources', 'resourceTemplates']) {
-    if (Array.isArray(r[arrayName])) {
-      for (const item of r[arrayName]) {
-        for (const field of fields) {
-          if (typeof item[field] === 'string') {
-            const before = item[field];
-            const out = compress(before).compressed;
-            if (out !== before) {
-              item[field] = out;
-              compressedSomething = true;
-              if (debug) {
-                process.stderr.write(
-                  `[caveman-shrink] ${arrayName}.${item.name || '?'}.${field}: ` +
-                  `${before.length}→${out.length} bytes\n`
-                );
-              }
-            }
-          }
-        }
-      }
+  // List responses (tools/prompts/resources): compress every matching field,
+  // including the NESTED ones — inputSchema.properties.*.description and other
+  // per-parameter descriptions, which dominate large tool schemas and are sent
+  // on every tools/list. The old code walked only the top-level description and
+  // gated the nested walk on "nothing matched at top level", so a tool's param
+  // descriptions (the bulk of the schema) were never compressed. One recursive
+  // walk covers top-level + nested in a single pass.
+  const hasList = ['tools', 'prompts', 'resources', 'resourceTemplates'].some(
+    n => Array.isArray(r[n])
+  );
+  if (hasList) {
+    const before = debug ? JSON.stringify(r).length : 0;
+    compressDescriptionsInPlace(r, fields);
+    if (debug) {
+      process.stderr.write(
+        `[caveman-shrink] list+nested descriptions: ${before}→${JSON.stringify(r).length} bytes\n`
+      );
     }
   }
-
-  // Some servers stuff descriptions in nested schemas. Only walk if nothing
-  // matched at the top level; avoids double-processing a tool's nested params.
-  if (!compressedSomething) compressDescriptionsInPlace(r, fields);
 
   return msg;
 }

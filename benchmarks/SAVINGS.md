@@ -82,6 +82,14 @@ output slice.
 
 Reproduce: `node benchmarks/tool_results/run.js && uv run --with tiktoken python benchmarks/tool_results/measure.py`
 
+`caveman-shrink` also compresses **tool/prompt/resource descriptions** on the
+`*/list` responses — and now the *nested* `inputSchema.properties.*.description`
+fields too (previously skipped whenever a tool had a top-level description, which
+is always). Those per-parameter descriptions are the bulk of a large tool schema
+and are re-sent on every `tools/list`, so the cut is recurring input. Per-schema
+reduction tracks how verbose the descriptions are (≈14% on a typical
+multi-parameter tool); covered by `tests/test_mcp_shrink.js`.
+
 ---
 
 ## Axis 3 — Injected-ruleset input cost (per session)

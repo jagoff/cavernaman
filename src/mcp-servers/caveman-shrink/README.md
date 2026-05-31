@@ -32,7 +32,7 @@ Wrap any MCP server in your Claude Code (or other client) config:
 }
 ```
 
-The proxy spawns the upstream as a subprocess, intercepts `tools/list`, `prompts/list`, `resources/list` responses, and rewrites the `description` fields (and anything else you list in `CAVEMAN_SHRINK_FIELDS`).
+The proxy spawns the upstream as a subprocess, intercepts `tools/list`, `prompts/list`, `resources/list` responses, and rewrites every `description` field (and anything else you list in `CAVEMAN_SHRINK_FIELDS`) — including nested per-parameter descriptions under `inputSchema.properties`, which are the bulk of a large tool schema and are re-sent on every `tools/list`.
 
 ## What it does NOT touch
 

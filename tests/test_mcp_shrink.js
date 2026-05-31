@@ -216,5 +216,32 @@ test('CAVEMAN_SHRINK_RESULTS=0 disables tool-result compression', () => {
   assert.strictEqual(out.result.content[0].text, original, 'must be untouched when disabled');
 });
 
+test('proxy compresses NESTED inputSchema param descriptions on tools/list', () => {
+  // Regression: transformResponse used to gate the nested walk on "nothing
+  // matched at top level", so a tool's param descriptions (the bulk of a large
+  // schema, sent every tools/list) were never compressed.
+  const resp = {
+    jsonrpc: '2.0', id: 6,
+    result: { tools: [{
+      name: 'search',
+      description: 'Search the database for records that match the query.',
+      inputSchema: { type: 'object', properties: {
+        query: { type: 'string',
+          description: 'The query string that you would like to search for in the index.' },
+        limit: { type: 'number',
+          description: 'The maximum number of results that will be returned to the caller.' },
+      } },
+    }] },
+  };
+  const before = resp.result.tools[0].inputSchema.properties.query.description;
+  const out = proxyRoundtrip(resp);
+  const props = out.result.tools[0].inputSchema.properties;
+  assert.ok(props.query.description.length < before.length,
+    `nested param description should shrink, got: ${props.query.description}`);
+  assert.doesNotMatch(props.query.description, /\bthe\b/i, 'articles stripped in nested desc');
+  assert.doesNotMatch(props.limit.description, /\bthe\b/i);
+  assert.match(out.result.tools[0].description, /database/i, 'top-level desc still compressed');
+});
+
 console.log(`\n${passed} passed, ${failed} failed`);
 process.exit(failed ? 1 : 0);
