@@ -88,7 +88,29 @@ if (skillContent) {
     return acc;
   }, []);
 
-  output = 'CAVERNAMAN MODE ACTIVE — level: ' + modeLabel + '\n\n' + filtered.join('\n');
+  // Trim scaffolding the per-level filter leaves behind (recurring input cost):
+  //   - the intensity table header + |---| separator are meaningless once only
+  //     the single active row survives;
+  //   - an "Example —" header is orphaned when its level bullets were filtered
+  //     out (e.g. an example with no lite/wenyan variant).
+  // Mirror any change here in evals/llm_run.py filter_skill_to_level.
+  const cleaned = [];
+  for (let i = 0; i < filtered.length; i++) {
+    const line = filtered[i];
+    if (/^\| Level \| What change \|/.test(line)) continue;
+    if (/^\|[-:\s|]+\|\s*$/.test(line)) continue;
+    if (/^Example —/.test(line)) {
+      let hasBullet = false;
+      for (let j = i + 1; j < filtered.length; j++) {
+        if (/^- /.test(filtered[j])) { hasBullet = true; break; }
+        if (filtered[j].trim() === '' || /^#/.test(filtered[j]) || /^Example —/.test(filtered[j])) break;
+      }
+      if (!hasBullet) continue;
+    }
+    cleaned.push(line);
+  }
+
+  output = 'CAVERNAMAN MODE ACTIVE — level: ' + modeLabel + '\n\n' + cleaned.join('\n');
 } else {
   // Fallback when SKILL.md is not found (standalone hook install without skills dir).
   // This is the minimum viable ruleset — better than nothing.

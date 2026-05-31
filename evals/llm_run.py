@@ -31,6 +31,7 @@ import json
 import os
 import re
 import subprocess
+import time
 from pathlib import Path
 
 EVALS = Path(__file__).parent
@@ -68,7 +69,28 @@ def filter_skill_to_level(skill_md: str, level: str) -> str:
                 out.append(line)
             continue
         out.append(line)
-    return "\n".join(out)
+
+    # Trim scaffolding the filter leaves behind — mirrors the SessionStart hook
+    # (src/hooks/caveman-activate.js): drop the now-pointless table header +
+    # |---| separator, and any "Example —" header orphaned by filtered bullets.
+    cleaned: list[str] = []
+    for i, line in enumerate(out):
+        if re.match(r"^\| Level \| What change \|", line):
+            continue
+        if re.match(r"^\|[-:\s|]+\|\s*$", line):
+            continue
+        if line.startswith("Example —"):
+            has_bullet = False
+            for nxt in out[i + 1:]:
+                if nxt.startswith("- "):
+                    has_bullet = True
+                    break
+                if nxt.strip() == "" or nxt.startswith("#") or nxt.startswith("Example —"):
+                    break
+            if not has_bullet:
+                continue
+        cleaned.append(line)
+    return "\n".join(cleaned)
 
 
 def run_claude(prompt: str, system: str | None = None) -> str:
@@ -78,8 +100,20 @@ def run_claude(prompt: str, system: str | None = None) -> str:
     if model := os.environ.get("CAVEMAN_EVAL_MODEL"):
         cmd += ["--model", model]
     cmd.append(prompt)
-    out = subprocess.run(cmd, capture_output=True, text=True, check=True)
-    return out.stdout.strip()
+    # Resilient: a single flaky/slow `claude -p` (nested agent sessions are
+    # slow and occasionally killed) must not abort a 30+ call run. Retry with
+    # backoff and a per-call timeout; raise only if every attempt fails.
+    last = None
+    for attempt in range(3):
+        try:
+            out = subprocess.run(
+                cmd, capture_output=True, text=True, check=True, timeout=180
+            )
+            return out.stdout.strip()
+        except (subprocess.CalledProcessError, subprocess.TimeoutExpired) as e:
+            last = e
+            time.sleep(2 * (attempt + 1))
+    raise RuntimeError(f"claude -p failed after 3 attempts: {last}")
 
 
 def claude_version() -> str:
@@ -129,7 +163,7 @@ def main() -> None:
         snapshot["arms"][skill] = [run_claude(p, system=system) for p in prompts]
 
     # Per-level caveman arms — isolate each intensity to prove the savings gap.
-    caveman_md = (SKILLS / "caveman" / "SKILL.md").read_text()
+    caveman_md = (SKILLS / "cavernaman" / "SKILL.md").read_text()
     for level in CAVEMAN_LEVELS:
         filtered = filter_skill_to_level(caveman_md, level)
         system = f"{TERSE_PREFIX}\n\n{filtered}\n\nCurrent level: {level}."

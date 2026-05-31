@@ -42,7 +42,7 @@ def count(text: str) -> int:
 
 def head_skill() -> str:
     out = subprocess.run(
-        ["git", "show", "HEAD:skills/caveman/SKILL.md"],
+        ["git", "show", "HEAD:skills/cavernaman/SKILL.md"],
         capture_output=True, text=True, check=True, cwd=EVALS.parent,
     )
     return out.stdout
@@ -56,7 +56,7 @@ def fmt_pct(x: float) -> str:
 def main() -> None:
     prompts = [p.strip() for p in PROMPTS.read_text().splitlines() if p.strip()]
     orig_md = head_skill()
-    work_md = (EVALS.parent / "skills" / "caveman" / "SKILL.md").read_text()
+    work_md = (EVALS.parent / "skills" / "cavernaman" / "SKILL.md").read_text()
 
     ultra_orig_sys = f"{TERSE_PREFIX}\n\n{_llm.filter_skill_to_level(orig_md, 'ultra')}\n\nCurrent level: ultra."
     ultra_v2_sys = f"{TERSE_PREFIX}\n\n{_llm.filter_skill_to_level(work_md, 'ultra')}\n\nCurrent level: ultra."

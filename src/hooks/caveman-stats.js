@@ -14,8 +14,11 @@ const { readFlag, appendFlag, readHistory, safeWriteFlag } = require('./caveman-
 
 // Mean per-task savings from benchmarks/results/*.json (avg_savings: 65 across
 // 10 tasks, sonnet-4-20250514). Only 'full' has measured data; lite / ultra /
-// wenyan modes show no estimate until benchmarked. Add an entry here when a new
-// run is committed.
+// wenyan modes show no estimate until benchmarked.
+// To populate the other levels with REAL numbers, run:
+//   uv run --with anthropic python benchmarks/run.py --levels   (needs ANTHROPIC_API_KEY)
+// It prints a ready-to-paste COMPRESSION map (caveman-vs-normal ratio per level)
+// and writes benchmarks/results/per_level.json. Never hand-estimate these.
 const COMPRESSION = { 'full': 0.65 };
 
 // Approximate Anthropic public output-token pricing, USD per million.

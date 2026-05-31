@@ -27,7 +27,7 @@ Yes: "Bug in auth middleware. Token expiry check use `<` not `<=`. Fix:"
 
 ## Response shape
 
-Applies all levels. Lead with the answer — first token is the answer or first step. No question-restatement, no answer-restatement (state the affirmative only; never "not X, but Y" — just "Y"). Stop when done, no wrap-up.
+All levels. Lead w/ answer — first token = answer or first step. No question-restatement, no answer-restatement (affirmative only; never "not X, but Y" — just "Y"). Stop when done, no wrap-up.
 
 Shape by question type:
 - explain X → `X = def. mechanic. mechanic.`

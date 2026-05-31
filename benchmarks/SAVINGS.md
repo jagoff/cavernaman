@@ -5,15 +5,17 @@ All numbers are real runs, not estimates. Tokenizer: `tiktoken o200k_base`
 Reproduce with the commands shown per section. No prompt set was changed to
 inflate a metric; floor cases (code/procedure-heavy) are shown, not hidden.
 
-## Why two axes
+## Why three axes
 
 A cavernaman response is a small slice of a real session. Tool-call results +
 pasted context are ~70–80% of the token budget; the model's prose response is
-~15–25%. So savings come from two independent levers, measured separately:
+~15–25%. So savings come from independent levers, measured separately:
 
 1. **Output** — how much tighter cavernaman makes the model's own response.
 2. **Tool-results** — `caveman-shrink` compressing prose in `tools/call`
    results that previously passed through untouched.
+3. **Injected ruleset** — the per-session input cost of the ruleset itself,
+   which the SessionStart hook pays every session.
 
 ---
 
@@ -79,6 +81,39 @@ translates to a larger absolute session saving than the same percentage on the
 output slice.
 
 Reproduce: `node benchmarks/tool_results/run.js && uv run --with tiktoken python benchmarks/tool_results/measure.py`
+
+---
+
+## Axis 3 — Injected-ruleset input cost (per session)
+
+The SessionStart hook (`src/hooks/caveman-activate.js`) reads
+`skills/cavernaman/SKILL.md`, filters the intensity table + examples to the
+active level, and injects the rest as context **every session**. That payload
+is recurring *input* cost — paid once per session, on top of any output saving.
+
+The per-level filter now also trims the scaffolding it used to leave behind:
+the intensity-table header + `|---|` separator (pointless once a single row
+survives) and any `Example —` header orphaned when its level had no example
+bullet. The shared prose is unchanged in meaning (the worked examples that
+anchor adherence are kept — see the hook's own rationale).
+
+Measured injected payload per level (`evals/inject_size.py`, tiktoken):
+
+| Level | before | after | delta |
+|-------|-------:|------:|------:|
+| lite | 748 | 697 | **−51 (−7%)** |
+| full | 780 | 760 | **−20 (−3%)** |
+| ultra | 978 | 958 | **−20 (−2%)** |
+| wenyan-lite | 733 | 674 | **−59 (−8%)** |
+| wenyan-full | 773 | 722 | **−51 (−7%)** |
+| wenyan-ultra | 738 | 687 | **−51 (−7%)** |
+
+Every level injects fewer tokens per session, with no change to behavior —
+the scaffolding trim plus a small response-shape prose tighten. `lite` and the
+`wenyan-*` levels gain most because their example sets had orphan headers the
+old filter left in.
+
+Reproduce: `uv run --with tiktoken python evals/inject_size.py`
 
 ---
 

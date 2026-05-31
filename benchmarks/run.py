@@ -3,6 +3,7 @@
 
 import argparse
 import hashlib
+import importlib.util
 import json
 import os
 import statistics
@@ -26,13 +27,31 @@ SCRIPT_VERSION = "1.0.0"
 SCRIPT_DIR = Path(__file__).parent
 REPO_DIR = SCRIPT_DIR.parent
 PROMPTS_PATH = SCRIPT_DIR / "prompts.json"
-SKILL_PATH = REPO_DIR / "skills" / "caveman" / "SKILL.md"
+SKILL_PATH = REPO_DIR / "skills" / "cavernaman" / "SKILL.md"
 README_PATH = REPO_DIR / "README.md"
 RESULTS_DIR = SCRIPT_DIR / "results"
 
 NORMAL_SYSTEM = "You are a helpful assistant."
 BENCHMARK_START = "<!-- BENCHMARK-TABLE-START -->"
 BENCHMARK_END = "<!-- BENCHMARK-TABLE-END -->"
+
+# Levels measured by --levels. Reuse the SessionStart hook's filter so each
+# arm sees exactly what a real session at that level would (single source).
+DEFAULT_LEVELS = ["lite", "full", "ultra", "wenyan-full"]
+LEVEL_RESULTS_PATH = RESULTS_DIR / "per_level.json"
+
+# Reuse filter_skill_to_level from evals/llm_run.py — do not reimplement.
+_llm_spec = importlib.util.spec_from_file_location(
+    "llm_run", REPO_DIR / "evals" / "llm_run.py"
+)
+_llm = importlib.util.module_from_spec(_llm_spec)
+_llm_spec.loader.exec_module(_llm)
+
+
+def caveman_system_for_level(skill_md, level):
+    """System prompt a real session at `level` would carry (filtered ruleset)."""
+    filtered = _llm.filter_skill_to_level(skill_md, level)
+    return f"{filtered}\n\nCurrent level: {level}."
 
 
 def load_prompts():
@@ -145,6 +164,80 @@ def compute_stats(results):
     }
 
 
+def run_levels(client, model, prompts, skill_md, levels, trials):
+    """Per-level benchmark: normal (shared) vs caveman at each intensity level.
+
+    Returns {level: {savings ratio, medians}} plus the raw normal arm, so the
+    ratios can be dropped straight into caveman-stats.js COMPRESSION.
+    """
+    systems = {lvl: caveman_system_for_level(skill_md, lvl) for lvl in levels}
+    per_prompt = []
+    total = len(prompts)
+
+    for i, entry in enumerate(prompts, 1):
+        pid, ptext = entry["id"], entry["prompt"]
+        row = {"id": pid, "normal": [], "levels": {lvl: [] for lvl in levels}}
+        for t in range(1, trials + 1):
+            print(f"  [{i}/{total}] {pid} | normal | trial {t}/{trials}", file=sys.stderr)
+            row["normal"].append(call_api(client, model, NORMAL_SYSTEM, ptext))
+            time.sleep(0.5)
+            for lvl in levels:
+                print(f"  [{i}/{total}] {pid} | {lvl} | trial {t}/{trials}", file=sys.stderr)
+                row["levels"][lvl].append(call_api(client, model, systems[lvl], ptext))
+                time.sleep(0.5)
+        per_prompt.append(row)
+
+    summary = {}
+    for lvl in levels:
+        savings = []
+        for row in per_prompt:
+            nm = statistics.median([r["output_tokens"] for r in row["normal"]])
+            cm = statistics.median([r["output_tokens"] for r in row["levels"][lvl]])
+            if nm > 0:
+                savings.append(1 - cm / nm)
+        summary[lvl] = round(statistics.mean(savings), 4) if savings else None
+    return summary, per_prompt
+
+
+def levels_main(args):
+    prompts = load_prompts()
+    levels = [s.strip() for s in args.levels.split(",") if s.strip()]
+    if args.dry_run:
+        print(f"Model:  {args.model}")
+        print(f"Trials: {args.trials}")
+        print(f"Levels: {levels}")
+        print(f"Prompts: {len(prompts)}")
+        print(f"Total API calls: {len(prompts) * (1 + len(levels)) * args.trials}")
+        print("Dry run complete. No API calls made.")
+        return
+    skill_md = load_caveman_system()
+    client = anthropic.Anthropic()
+    print(f"Per-level benchmark: {len(levels)} levels × {len(prompts)} prompts "
+          f"× {args.trials} trials, model {args.model}", file=sys.stderr)
+    summary, raw = run_levels(client, args.model, prompts, skill_md, levels, args.trials)
+
+    RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+    LEVEL_RESULTS_PATH.write_text(json.dumps({
+        "metadata": {
+            "script_version": SCRIPT_VERSION,
+            "model": args.model,
+            "date": datetime.now(timezone.utc).isoformat(),
+            "trials": args.trials,
+            "skill_md_sha256": sha256_file(SKILL_PATH),
+        },
+        "compression_by_level": summary,
+        "raw": raw,
+    }, indent=2))
+
+    print(f"\nWrote {LEVEL_RESULTS_PATH}", file=sys.stderr)
+    print("\nMeasured COMPRESSION ratios (paste into src/hooks/caveman-stats.js):")
+    print("const COMPRESSION = {")
+    for lvl, ratio in summary.items():
+        if ratio is not None:
+            print(f"  {json.dumps(lvl)}: {ratio},")
+    print("};")
+
+
 def format_prompt_label(prompt_id):
     labels = {
         "react-rerender": "Explain React re-render bug",
@@ -242,7 +335,20 @@ def main():
     parser.add_argument("--dry-run", action="store_true", help="Print config, no API calls")
     parser.add_argument("--update-readme", action="store_true", help="Update README.md benchmark table")
     parser.add_argument("--model", default="claude-sonnet-4-20250514", help="Model to use")
+    parser.add_argument(
+        "--levels",
+        nargs="?",
+        const=",".join(DEFAULT_LEVELS),
+        default=None,
+        help="Per-level benchmark (caveman-vs-normal ratio per intensity). "
+        f"Bare flag = {','.join(DEFAULT_LEVELS)}; or pass a CSV like lite,ultra. "
+        "Prints COMPRESSION ratios for caveman-stats.js.",
+    )
     args = parser.parse_args()
+
+    if args.levels:
+        levels_main(args)
+        return
 
     prompts = load_prompts()
 
