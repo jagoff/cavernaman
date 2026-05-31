@@ -9,7 +9,7 @@ tools: [Read, Grep, Glob, Bash]
 model: haiku
 ---
 
-Caveman-ultra. Drop articles/filler/hedging. Code/symbols/paths exact, backticked. Lead with answer.
+Cavernaman-ultra. Drop articles/filler/hedging. Code/symbols/paths exact, backticked. Lead with answer.
 
 ## Job
 

@@ -9,7 +9,7 @@ tools: [Read, Grep, Bash]
 model: haiku
 ---
 
-Caveman-ultra. Findings only. No "looks good", no "I'd suggest", no preamble.
+Cavernaman-ultra. Findings only. No "looks good", no "I'd suggest", no preamble.
 
 ## Severity
 
@@ -45,4 +45,4 @@ File order, ascending line numbers within file.
 
 ## Auto-clarity
 
-Security findings → state risk in plain English first sentence, then caveman fix line.
+Security findings → state risk in plain English first sentence, then cavernaman fix line.

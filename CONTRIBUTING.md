@@ -1,20 +1,20 @@
-# Contributing to caveman
+# Contributing to cavernaman
 
-Thanks for considering a contribution. Caveman is a multi-agent skill that
+Thanks for considering a contribution. Cavernaman is a multi-agent skill that
 makes 30+ AI coding agents talk in compressed caveman-style prose. Most
 contributions fall into one of three buckets:
 
-1. **Editing skill prose** — change how caveman speaks, what intensity levels do, what slash commands trigger.
+1. **Editing skill prose** — change how cavernaman speaks, what intensity levels do, what slash commands trigger.
 2. **Adding a new agent** — wire a fresh editor/CLI/IDE into the unified installer.
 3. **Fixing the hooks or installer** — Claude Code hooks, the Node installer, the per-repo init script.
 
-Caveman like simple. Small focused PR > big rewrite.
+Cavernaman like simple. Small focused PR > big rewrite.
 
 ---
 
 ## Quick orientation
 
-The repo distributes one skill (caveman) plus a handful of sub-skills
+The repo distributes one skill (cavernaman) plus a handful of sub-skills
 (caveman-commit, caveman-review, caveman-compress, cavecrew-*) to many
 agents through different distribution mechanisms (Claude Code plugin, Codex
 plugin, Gemini extension, Cursor/Windsurf/Cline rule files, `npx skills` for
@@ -31,11 +31,11 @@ copies live under `plugins/caveman/` and similar mirror dirs — those are
 
 | I want to change... | Edit this file |
 |---|---|
-| Caveman behavior (intensity levels, voice, rules) | `skills/caveman/SKILL.md` |
-| Caveman commit-message format | `skills/caveman-commit/SKILL.md` |
-| Caveman code-review format | `skills/caveman-review/SKILL.md` |
-| Caveman compress logic | `skills/caveman-compress/SKILL.md` and `skills/caveman-compress/scripts/` |
-| Caveman quick-reference card | `skills/caveman-help/SKILL.md` |
+| Cavernaman behavior (intensity levels, voice, rules) | `skills/caveman/SKILL.md` |
+| Cavernaman commit-message format | `skills/caveman-commit/SKILL.md` |
+| Cavernaman code-review format | `skills/caveman-review/SKILL.md` |
+| Cavernaman compress logic | `skills/caveman-compress/SKILL.md` and `skills/caveman-compress/scripts/` |
+| Cavernaman quick-reference card | `skills/caveman-help/SKILL.md` |
 | Cavecrew decision guide (when to delegate to subagents) | `skills/cavecrew/SKILL.md` |
 | cavecrew subagent definitions | `agents/cavecrew-investigator.md`, `agents/cavecrew-builder.md`, `agents/cavecrew-reviewer.md` |
 | Auto-activation rule body (Cursor/Windsurf/Cline/Copilot) | `src/rules/caveman-activate.md` |
@@ -124,7 +124,7 @@ npm test
 python3 -m unittest tests.test_compress_safety
 
 # Per-repo init tests
-node tests/test_caveman_init.js
+node tests/test_cavernaman_init.js
 
 # Flag-file symlink-safety tests
 node tests/test_symlink_flag.js
@@ -165,7 +165,7 @@ real runs — never invent or round.
 - **Show before/after** for prose changes to any `SKILL.md`. One sentence on why the new wording is better.
 - **Mention the CI sync.** If you edited a source-of-truth file, note it: "CI will resync `plugins/caveman/skills/...` on merge."
 
-PR descriptions don't need to be long. Caveman style fine. Just say what change, why.
+PR descriptions don't need to be long. Cavernaman style fine. Just say what change, why.
 
 ---
 
@@ -188,5 +188,5 @@ See [issues labeled `good first issue`](../../issues?q=label%3A%22good+first+iss
 for starter tasks. Or grep `TODO` / `FIXME` in `src/hooks/`, `bin/`, `src/tools/` —
 each one is a real lead.
 
-Caveman like contribution. You bring rock, caveman put rock in pile. Pile
+Cavernaman like contribution. You bring rock, cavernaman put rock in pile. Pile
 get bigger. Brain still big.

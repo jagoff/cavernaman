@@ -1,4 +1,4 @@
-# Install caveman
+# Install cavernaman
 
 One install. Works for every AI coding agent on your machine.
 
@@ -74,7 +74,7 @@ If you want to install for one agent (or want to know exactly what command runs 
 
 "Soft probe" = installer won't auto-detect these without `--only <id>` because there's no reliable always-on signal (Copilot subscription state is auth-gated; the others have no CLI / config-dir-only). Pass the flag when you want them.
 
-For "auto-activates? No" agents, type `/caveman` once per session (or use natural-language triggers like "talk like caveman", "caveman mode").
+For "auto-activates? No" agents, type `/caveman` once per session (or use natural-language triggers like "talk like cavernaman", "cavernaman mode").
 
 Full agent matrix (with detection rules) is in `bin/install.js` under the `PROVIDERS` array.
 
@@ -85,7 +85,7 @@ If you'd rather see exactly what runs:
 ```bash
 # Clone the repo
 git clone https://github.com/JuliusBrussee/caveman.git
-cd caveman
+cd cavernaman
 
 # Preview every command the installer would run
 node bin/install.js --dry-run --all
@@ -146,7 +146,7 @@ You should see ~30 rows. Detected agents are marked. Anything you wanted but isn
 
 **2. Talk to Claude Code.**
 
-Open Claude Code, type `/caveman`. Response should be terse fragments — "Got it. Caveman mode on." or similar. Try a real question: "What is closures in JS?" — answer should drop articles and read like grunts.
+Open Claude Code, type `/caveman`. Response should be terse fragments — "Got it. Cavernaman mode on." or similar. Try a real question: "What is closures in JS?" — answer should drop articles and read like grunts.
 
 **3. Check the flag file.**
 
@@ -157,7 +157,7 @@ cat "${CLAUDE_CONFIG_DIR:-$HOME/.claude}/.caveman-active"
 
 If it's missing or empty, the SessionStart hook didn't fire. See troubleshooting below.
 
-Statusline should show `[CAVEMAN]` (orange) at the bottom of Claude Code. After your first `/caveman-stats` run it appends a savings counter like `[CAVEMAN] ⛏ 12.4k`.
+Statusline should show `[CAVERNAMAN]` (orange) at the bottom of Claude Code. After your first `/caveman-stats` run it appends a savings counter like `[CAVERNAMAN] ⛏ 12.4k`.
 
 ## Uninstall
 
@@ -167,10 +167,10 @@ npx -y github:JuliusBrussee/caveman -- --uninstall
 
 What it removes:
 
-- Caveman hook entries from `$CLAUDE_CONFIG_DIR/settings.json` (default `~/.claude/`; matched by the substring `caveman`).
+- Cavernaman hook entries from `$CLAUDE_CONFIG_DIR/settings.json` (default `~/.claude/`; matched by the substring `caveman`).
 - Hook files in `$CLAUDE_CONFIG_DIR/hooks/` (`caveman-activate.js`, `caveman-mode-tracker.js`, `caveman-stats.js`, `caveman-config.js`, `caveman-statusline.{sh,ps1}`, plus the dir's `package.json` marker).
 - The Claude Code plugin and the Gemini CLI extension (if installed).
-- The opencode native plugin (`~/.config/opencode/plugins/caveman/`, the `plugin` and `mcp.caveman-shrink` entries from `opencode.json`, our skill/agent/command files, the caveman block from `AGENTS.md`, and the opencode flag file).
+- The opencode native plugin (`~/.config/opencode/plugins/caveman/`, the `plugin` and `mcp.caveman-shrink` entries from `opencode.json`, our skill/agent/command files, the cavernaman block from `AGENTS.md`, and the opencode flag file).
 - The OpenClaw workspace skill folder and the marker-fenced block from `~/.openclaw/workspace/SOUL.md` (when present).
 - The `.caveman-active` flag file.
 
@@ -185,13 +185,13 @@ What it does **not** remove:
 
 Open your agent in this repo and say:
 
-> "Read CLAUDE.md and INSTALL.md. Install caveman for me."
+> "Read CLAUDE.md and INSTALL.md. Install cavernaman for me."
 
-Agent read repo. Agent run install. Caveman make agent talk less — agent first job is install caveman to talk less. Snake eat tail.
+Agent read repo. Agent run install. Cavernaman make agent talk less — agent first job is install cavernaman to talk less. Snake eat tail.
 
 Still broken? [Open an issue](https://github.com/JuliusBrussee/caveman/issues).
 
-**"I ran the installer but Claude Code isn't talking caveman."**
+**"I ran the installer but Claude Code isn't talking cavernaman."**
 
 1. Run `node bin/install.js --list` — confirm `claude` is on the detected list. If not, `claude` isn't on `PATH`. Fix that first.
 2. Open `$CLAUDE_CONFIG_DIR/settings.json` (default `~/.claude/settings.json`) and look for `"hooks"` containing `caveman-activate.js` and `caveman-mode-tracker.js`. If missing, re-run with `--force`.

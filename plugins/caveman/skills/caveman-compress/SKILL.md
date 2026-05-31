@@ -1,13 +1,13 @@
 ---
 name: caveman-compress
 description: >
-  Compress natural language memory files (CLAUDE.md, todos, preferences) into caveman format
+  Compress natural language memory files (CLAUDE.md, todos, preferences) into cavernaman format
   to save input tokens. Preserves all technical substance, code, URLs, and structure.
   Compressed version overwrites the original file. Human-readable backup saved as FILE.original.md.
   Trigger: /caveman-compress FILEPATH or "compress memory file"
 ---
 
-# Caveman Compress
+# Cavernaman Compress
 
 ## Purpose
 

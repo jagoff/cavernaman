@@ -1,7 +1,7 @@
 ---
-description: Show caveman lifetime token-savings stats
+description: Show cavernaman lifetime token-savings stats
 ---
-Show caveman stats — total tokens saved, sessions, average compression ratio.
+Show cavernaman stats — total tokens saved, sessions, average compression ratio.
 
 Read the lifetime history log at `~/.config/caveman/.caveman-history.jsonl`
 (or wherever the caveman-stats script writes it). Output: total saved,
