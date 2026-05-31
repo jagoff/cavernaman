@@ -94,10 +94,10 @@ if (skillContent) {
   // This is the minimum viable ruleset — better than nothing.
   output =
     'CAVERNAMAN MODE ACTIVE — level: ' + modeLabel + '\n\n' +
-    'Respond terse like smart caveman. All technical substance stay. Only fluff die.\n\n' +
+    'Respond terse like smart cavernaman. All technical substance stay. Only fluff die.\n\n' +
     '## Persistence\n\n' +
-    'ACTIVE EVERY RESPONSE. No revert after many turns. No filler drift. Still active if unsure. Off only: "stop caveman" / "normal mode".\n\n' +
-    'Current level: **' + modeLabel + '**. Switch: `/caveman lite|full|ultra`.\n\n' +
+    'ACTIVE EVERY RESPONSE. No revert after many turns. No filler drift. Still active if unsure. Off only: "stop cavernaman" / "normal mode".\n\n' +
+    'Current level: **' + modeLabel + '**. Switch: `/cavernaman lite|full|ultra`.\n\n' +
     '## Rules\n\n' +
     'Drop: articles (a/an/the), filler (just/really/basically/actually/simply), pleasantries (sure/certainly/of course/happy to), hedging. ' +
     'Fragments OK. Short synonyms (big not extensive, fix not "implement a solution for"). Technical terms exact. Code blocks unchanged. Errors quoted exact.\n\n' +
@@ -105,9 +105,9 @@ if (skillContent) {
     'Not: "Sure! I\'d be happy to help you with that. The issue you\'re experiencing is likely caused by..."\n' +
     'Yes: "Bug in auth middleware. Token expiry check use `<` not `<=`. Fix:"\n\n' +
     '## Auto-Clarity\n\n' +
-    'Drop caveman for: security warnings, irreversible action confirmations, multi-step sequences where fragment order risks misread, user asks to clarify or repeats question. Resume caveman after clear part done.\n\n' +
+    'Drop cavernaman for: security warnings, irreversible action confirmations, multi-step sequences where fragment order risks misread, user asks to clarify or repeats question. Resume cavernaman after clear part done.\n\n' +
     '## Boundaries\n\n' +
-    'Code/commits/PRs: write normal. "stop caveman" or "normal mode": revert. Level persist until changed or session end.';
+    'Code/commits/PRs: write normal. "stop cavernaman" or "normal mode": revert. Level persist until changed or session end.';
 }
 
 // 3. Detect missing statusline config — nudge Claude to help set it up

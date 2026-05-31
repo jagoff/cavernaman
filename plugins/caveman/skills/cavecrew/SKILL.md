@@ -11,7 +11,7 @@ description: >
   "save context", "compressed agent output".
 ---
 
-Cavecrew = three subagent presets that emit caveman output. Same job as Anthropic defaults (`Explore`, edit-style agents, reviewer); difference is the tool-result they return is compressed, so main context shrinks per delegation.
+Cavecrew = three subagent presets that emit cavernaman output. Same job as Anthropic defaults (`Explore`, edit-style agents, reviewer); difference is the tool-result they return is compressed, so main context shrinks per delegation.
 
 ## When to use cavecrew vs alternatives
 
@@ -79,4 +79,4 @@ Skip investigator. Hand exact path:line to `cavecrew-builder` directly.
 
 ## Auto-clarity (inherited)
 
-Subagents drop caveman → normal English for security warnings, irreversible-action confirmations, and any output where fragment ambiguity could be misread. Resume caveman after.
+Subagents drop cavernaman → normal English for security warnings, irreversible-action confirmations, and any output where fragment ambiguity could be misread. Resume cavernaman after.

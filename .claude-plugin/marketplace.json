@@ -9,7 +9,7 @@
   "plugins": [
     {
       "name": "caveman",
-      "description": "Talk like caveman. Cut ~75% tokens. Keep all technical accuracy.",
+      "description": "Talk like cavernaman. Cut ~75% tokens. Keep all technical accuracy.",
       "source": "./",
       "category": "productivity"
     }

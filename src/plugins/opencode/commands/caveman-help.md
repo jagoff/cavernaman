@@ -1,7 +1,7 @@
 ---
-description: Quick reference card for caveman modes, slash commands, and triggers
+description: Quick reference card for cavernaman modes, slash commands, and triggers
 ---
-Show the caveman quick-reference card.
+Show the cavernaman quick-reference card.
 
 | Command | What |
 |---|---|
@@ -15,6 +15,6 @@ Show the caveman quick-reference card.
 | `/caveman-compress <file>` | Compress a Markdown file |
 | `/caveman-stats` | Lifetime token-savings |
 
-Natural language also works: "turn on caveman", "stop caveman", "normal mode".
+Natural language also works: "turn on cavernaman", "stop cavernaman", "normal mode".
 
-Code, commits, security warnings: caveman drops out automatically.
+Code, commits, security warnings: cavernaman drops out automatically.

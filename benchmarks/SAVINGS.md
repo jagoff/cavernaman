@@ -7,17 +7,17 @@ inflate a metric; floor cases (code/procedure-heavy) are shown, not hidden.
 
 ## Why two axes
 
-A caveman response is a small slice of a real session. Tool-call results +
+A cavernaman response is a small slice of a real session. Tool-call results +
 pasted context are ~70–80% of the token budget; the model's prose response is
 ~15–25%. So savings come from two independent levers, measured separately:
 
-1. **Output** — how much tighter caveman makes the model's own response.
+1. **Output** — how much tighter cavernaman makes the model's own response.
 2. **Tool-results** — `caveman-shrink` compressing prose in `tools/call`
    results that previously passed through untouched.
 
 ---
 
-## Axis 1 — Output compression (caveman `ultra` v2)
+## Axis 1 — Output compression (cavernaman `ultra` v2)
 
 `ultra` gained: response-shape templates (all modes), markdown-strip,
 expanded abbreviation dictionary, symbol substitution (and→&, →, w/…),
@@ -88,7 +88,7 @@ Two independent, real wins on the compressible (prose) token mass:
 
 | Axis | What it cuts | Measured reduction |
 |------|--------------|-------------------:|
-| Output (ultra v2) | caveman's own response, vs previously-shipped ultra | **+23% total** (median +19%) |
+| Output (ultra v2) | cavernaman's own response, vs previously-shipped ultra | **+23% total** (median +19%) |
 | Tool-results | prose in `tools/call` results, previously untouched | **+14% prose / +11% blended** |
 
 Stacked on the prose either lever can touch, the two clear **+25%** comfortably
