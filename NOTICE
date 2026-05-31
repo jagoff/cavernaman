@@ -1,0 +1,17 @@
+cavernaman
+==========
+
+cavernaman is a derivative work of "caveman" by Julius Brussee
+(https://github.com/JuliusBrussee/caveman), distributed under the MIT License.
+
+The original MIT License and copyright notice are retained verbatim in LICENSE:
+
+    Copyright (c) 2026 Julius Brussee
+
+Modifications in this fork (rename to cavernaman, token-savings rule changes,
+tool-result compression, measurement harnesses):
+
+    Copyright (c) 2026 Fernando Ferrari
+
+This software remains licensed under the MIT License. See LICENSE for the full
+terms. Use of the caveman name and original code is per that license.

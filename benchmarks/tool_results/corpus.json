@@ -1,0 +1,45 @@
+{
+  "description": "Representative MCP/CLI tool-call results for measuring caveman-shrink tool-result compression. Deliberately mixed: prose-bearing outputs (help text, tool descriptions, doc reads, error explanations) that the proxy compresses, plus structured outputs (JSON, listings, tables) that looksStructured() passes through. The blended number is the honest expected savings, not a cherry-picked prose-only figure.",
+  "items": [
+    {
+      "id": "cli-help",
+      "kind": "prose",
+      "text": "Usage: deploy [options]\n\nDeploy the application to the configured environment. This command will basically build the project, then upload the artifacts, and finally restart the running services. Please make sure that you have set the credentials before you run it, otherwise the deploy will fail. You can optionally pass a target environment to override the default that is configured in the settings file."
+    },
+    {
+      "id": "mcp-tool-descriptions",
+      "kind": "prose",
+      "text": "search_files: Search for files in the workspace that match a given glob pattern. Returns a list of the absolute paths that were found. read_file: Read the full contents of a file at the given path and return it as a string. write_file: Write the provided content to a file, creating it if it does not already exist or overwriting it if it does."
+    },
+    {
+      "id": "error-explanation",
+      "kind": "prose",
+      "text": "The request failed because the server could not establish a connection to the database. This is usually caused by an incorrect connection string or by the database server not currently running. You should verify that the credentials are correct and that the host is reachable, and then you can simply try the request again."
+    },
+    {
+      "id": "doc-read",
+      "kind": "prose",
+      "text": "Connection pooling is a technique that is used to maintain a cache of database connections so that the connections can be reused when future requests to the database are required. Pooling is really important because opening a new connection for every single request is quite expensive in terms of latency and resources."
+    },
+    {
+      "id": "npm-install-log",
+      "kind": "prose",
+      "text": "Installing the dependencies for the project. This will basically download all of the packages that are listed in the manifest and then it will build any of the native modules that are required. The whole process can take a few minutes depending on your network connection and the number of packages involved."
+    },
+    {
+      "id": "json-api-response",
+      "kind": "structured",
+      "text": "{\"status\":\"ok\",\"data\":{\"id\":42,\"name\":\"the service\",\"replicas\":3,\"endpoints\":[\"https://a.example.com\",\"https://b.example.com\"],\"healthy\":true}}"
+    },
+    {
+      "id": "git-status",
+      "kind": "structured",
+      "text": " M src/app.js\n M README.md\n?? notes.txt\n M test/the_spec.js\n D old/legacy.js\n M config/the.settings.json"
+    },
+    {
+      "id": "db-table",
+      "kind": "structured",
+      "text": "id,name,status,created\n1,alpha,active,2026-01-01\n2,beta,inactive,2026-02-15\n3,gamma,active,2026-03-09\n4,delta,active,2026-04-22"
+    }
+  ]
+}
