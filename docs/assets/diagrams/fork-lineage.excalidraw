@@ -1,0 +1,154 @@
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "https://github.com/jagoff/cavernaman",
+  "elements": [
+    {
+      "type": "text", "id": "title", "x": 60, "y": 36, "width": 840, "height": 34,
+      "text": "cavernaman = caveman + token-savings v2", "originalText": "cavernaman = caveman + token-savings v2",
+      "fontSize": 26, "fontFamily": 3, "textAlign": "left", "verticalAlign": "top",
+      "strokeColor": "#1e40af", "backgroundColor": "transparent", "fillStyle": "solid",
+      "strokeWidth": 1, "strokeStyle": "solid", "roughness": 0, "opacity": 100, "angle": 0,
+      "seed": 300001, "version": 1, "versionNonce": 300002, "isDeleted": false, "groupIds": [],
+      "boundElements": null, "link": null, "locked": false, "containerId": null, "lineHeight": 1.25
+    },
+    {
+      "type": "text", "id": "subtitle", "x": 60, "y": 78, "width": 1000, "height": 22,
+      "text": "A fork of caveman (Julius Brussee, MIT). Same foundation, kept whole — plus measured new compression.",
+      "originalText": "A fork of caveman (Julius Brussee, MIT). Same foundation, kept whole — plus measured new compression.",
+      "fontSize": 15, "fontFamily": 3, "textAlign": "left", "verticalAlign": "top",
+      "strokeColor": "#64748b", "backgroundColor": "transparent", "fillStyle": "solid",
+      "strokeWidth": 1, "strokeStyle": "solid", "roughness": 0, "opacity": 100, "angle": 0,
+      "seed": 300003, "version": 1, "versionNonce": 300004, "isDeleted": false, "groupIds": [],
+      "boundElements": null, "link": null, "locked": false, "containerId": null, "lineHeight": 1.25
+    },
+
+    {
+      "type": "rectangle", "id": "caveman", "x": 330, "y": 140, "width": 300, "height": 78,
+      "strokeColor": "#1e3a5f", "backgroundColor": "#dbeafe", "fillStyle": "solid",
+      "strokeWidth": 2, "strokeStyle": "solid", "roughness": 0, "opacity": 100, "angle": 0,
+      "seed": 300005, "version": 1, "versionNonce": 300006, "isDeleted": false, "groupIds": [],
+      "boundElements": [{"id": "caveman_t", "type": "text"}, {"id": "arrow_main", "type": "arrow"}], "link": null, "locked": false, "roundness": {"type": 3}
+    },
+    {
+      "type": "text", "id": "caveman_t", "x": 346, "y": 158, "width": 268, "height": 42,
+      "text": "caveman\nby Julius Brussee · MIT", "originalText": "caveman\nby Julius Brussee · MIT",
+      "fontSize": 18, "fontFamily": 3, "textAlign": "center", "verticalAlign": "middle",
+      "strokeColor": "#1e3a5f", "backgroundColor": "transparent", "fillStyle": "solid",
+      "strokeWidth": 1, "strokeStyle": "solid", "roughness": 0, "opacity": 100, "angle": 0,
+      "seed": 300007, "version": 1, "versionNonce": 300008, "isDeleted": false, "groupIds": [],
+      "boundElements": null, "link": null, "locked": false, "containerId": "caveman", "lineHeight": 1.25
+    },
+
+    {
+      "type": "arrow", "id": "arrow_main", "x": 480, "y": 218, "width": 0, "height": 62,
+      "strokeColor": "#1e3a5f", "backgroundColor": "transparent", "fillStyle": "solid",
+      "strokeWidth": 2, "strokeStyle": "solid", "roughness": 0, "opacity": 100, "angle": 0,
+      "seed": 300009, "version": 1, "versionNonce": 300010, "isDeleted": false, "groupIds": [],
+      "boundElements": null, "link": null, "locked": false, "points": [[0, 0], [0, 62]],
+      "startBinding": {"elementId": "caveman", "focus": 0, "gap": 2}, "endBinding": {"elementId": "cavernaman", "focus": 0, "gap": 2},
+      "startArrowhead": null, "endArrowhead": "arrow"
+    },
+    {
+      "type": "text", "id": "fork_lbl", "x": 490, "y": 238, "width": 120, "height": 20,
+      "text": "fork", "originalText": "fork",
+      "fontSize": 14, "fontFamily": 3, "textAlign": "left", "verticalAlign": "middle",
+      "strokeColor": "#64748b", "backgroundColor": "transparent", "fillStyle": "solid",
+      "strokeWidth": 1, "strokeStyle": "solid", "roughness": 0, "opacity": 100, "angle": 0,
+      "seed": 300011, "version": 1, "versionNonce": 300012, "isDeleted": false, "groupIds": [],
+      "boundElements": null, "link": null, "locked": false, "containerId": null, "lineHeight": 1.25
+    },
+
+    {
+      "type": "rectangle", "id": "cavernaman", "x": 330, "y": 282, "width": 300, "height": 78,
+      "strokeColor": "#c2410c", "backgroundColor": "#fed7aa", "fillStyle": "solid",
+      "strokeWidth": 2, "strokeStyle": "solid", "roughness": 0, "opacity": 100, "angle": 0,
+      "seed": 300013, "version": 1, "versionNonce": 300014, "isDeleted": false, "groupIds": [],
+      "boundElements": [{"id": "cavernaman_t", "type": "text"}, {"id": "arrow_main", "type": "arrow"}, {"id": "arrow_keep", "type": "arrow"}, {"id": "arrow_add", "type": "arrow"}], "link": null, "locked": false, "roundness": {"type": 3}
+    },
+    {
+      "type": "text", "id": "cavernaman_t", "x": 346, "y": 300, "width": 268, "height": 42,
+      "text": "cavernaman\nby Fernando Ferrari · MIT", "originalText": "cavernaman\nby Fernando Ferrari · MIT",
+      "fontSize": 18, "fontFamily": 3, "textAlign": "center", "verticalAlign": "middle",
+      "strokeColor": "#7c2d12", "backgroundColor": "transparent", "fillStyle": "solid",
+      "strokeWidth": 1, "strokeStyle": "solid", "roughness": 0, "opacity": 100, "angle": 0,
+      "seed": 300015, "version": 1, "versionNonce": 300016, "isDeleted": false, "groupIds": [],
+      "boundElements": null, "link": null, "locked": false, "containerId": "cavernaman", "lineHeight": 1.25
+    },
+
+    {
+      "type": "arrow", "id": "arrow_keep", "x": 330, "y": 360, "width": 170, "height": 70,
+      "strokeColor": "#047857", "backgroundColor": "transparent", "fillStyle": "solid",
+      "strokeWidth": 2, "strokeStyle": "solid", "roughness": 0, "opacity": 100, "angle": 0,
+      "seed": 300017, "version": 1, "versionNonce": 300018, "isDeleted": false, "groupIds": [],
+      "boundElements": null, "link": null, "locked": false, "points": [[0, 0], [-150, 70]],
+      "startBinding": {"elementId": "cavernaman", "focus": 0, "gap": 2}, "endBinding": {"elementId": "keep_box", "focus": 0, "gap": 2},
+      "startArrowhead": null, "endArrowhead": "arrow"
+    },
+    {
+      "type": "arrow", "id": "arrow_add", "x": 630, "y": 360, "width": 170, "height": 70,
+      "strokeColor": "#6d28d9", "backgroundColor": "transparent", "fillStyle": "solid",
+      "strokeWidth": 2, "strokeStyle": "solid", "roughness": 0, "opacity": 100, "angle": 0,
+      "seed": 300019, "version": 1, "versionNonce": 300020, "isDeleted": false, "groupIds": [],
+      "boundElements": null, "link": null, "locked": false, "points": [[0, 0], [150, 70]],
+      "startBinding": {"elementId": "cavernaman", "focus": 0, "gap": 2}, "endBinding": {"elementId": "add_box", "focus": 0, "gap": 2},
+      "startArrowhead": null, "endArrowhead": "arrow"
+    },
+
+    {
+      "type": "rectangle", "id": "keep_box", "x": 60, "y": 430, "width": 360, "height": 196,
+      "strokeColor": "#047857", "backgroundColor": "#a7f3d0", "fillStyle": "solid",
+      "strokeWidth": 2, "strokeStyle": "solid", "roughness": 0, "opacity": 100, "angle": 0,
+      "seed": 300021, "version": 1, "versionNonce": 300022, "isDeleted": false, "groupIds": [],
+      "boundElements": [{"id": "keep_h", "type": "text"}, {"id": "arrow_keep", "type": "arrow"}], "link": null, "locked": false, "roundness": {"type": 3}
+    },
+    {
+      "type": "text", "id": "keep_h", "x": 76, "y": 446, "width": 328, "height": 24,
+      "text": "Inherited from caveman", "originalText": "Inherited from caveman",
+      "fontSize": 18, "fontFamily": 3, "textAlign": "left", "verticalAlign": "top",
+      "strokeColor": "#065f46", "backgroundColor": "transparent", "fillStyle": "solid",
+      "strokeWidth": 1, "strokeStyle": "solid", "roughness": 0, "opacity": 100, "angle": 0,
+      "seed": 300023, "version": 1, "versionNonce": 300024, "isDeleted": false, "groupIds": [],
+      "boundElements": null, "link": null, "locked": false, "containerId": null, "lineHeight": 1.25
+    },
+    {
+      "type": "text", "id": "keep_list", "x": 90, "y": 484, "width": 320, "height": 130,
+      "text": "• Caveman-speak voice & intensity levels\n• Skill / plugin model (Claude, Codex…)\n• 30+ agent install matrix\n• SessionStart + statusline hook design\n• MIT license & attribution",
+      "originalText": "• Caveman-speak voice & intensity levels\n• Skill / plugin model (Claude, Codex…)\n• 30+ agent install matrix\n• SessionStart + statusline hook design\n• MIT license & attribution",
+      "fontSize": 14, "fontFamily": 3, "textAlign": "left", "verticalAlign": "top",
+      "strokeColor": "#065f46", "backgroundColor": "transparent", "fillStyle": "solid",
+      "strokeWidth": 1, "strokeStyle": "solid", "roughness": 0, "opacity": 100, "angle": 0,
+      "seed": 300025, "version": 1, "versionNonce": 300026, "isDeleted": false, "groupIds": [],
+      "boundElements": null, "link": null, "locked": false, "containerId": null, "lineHeight": 1.5
+    },
+
+    {
+      "type": "rectangle", "id": "add_box", "x": 540, "y": 430, "width": 380, "height": 196,
+      "strokeColor": "#6d28d9", "backgroundColor": "#ddd6fe", "fillStyle": "solid",
+      "strokeWidth": 2, "strokeStyle": "solid", "roughness": 0, "opacity": 100, "angle": 0,
+      "seed": 300027, "version": 1, "versionNonce": 300028, "isDeleted": false, "groupIds": [],
+      "boundElements": [{"id": "add_h", "type": "text"}, {"id": "arrow_add", "type": "arrow"}], "link": null, "locked": false, "roundness": {"type": 3}
+    },
+    {
+      "type": "text", "id": "add_h", "x": 556, "y": 446, "width": 348, "height": 24,
+      "text": "Added by cavernaman (measured)", "originalText": "Added by cavernaman (measured)",
+      "fontSize": 18, "fontFamily": 3, "textAlign": "left", "verticalAlign": "top",
+      "strokeColor": "#4c1d95", "backgroundColor": "transparent", "fillStyle": "solid",
+      "strokeWidth": 1, "strokeStyle": "solid", "roughness": 0, "opacity": 100, "angle": 0,
+      "seed": 300029, "version": 1, "versionNonce": 300030, "isDeleted": false, "groupIds": [],
+      "boundElements": null, "link": null, "locked": false, "containerId": null, "lineHeight": 1.25
+    },
+    {
+      "type": "text", "id": "add_list", "x": 570, "y": 484, "width": 340, "height": 130,
+      "text": "• ultra v2 output rules → +23%\n• caveman-shrink tool-results → +14% prose\n• Injected-ruleset trim → −2 to −8%/session\n• 3-axis measurement harness\n• Test-isolation & stale-count fixes",
+      "originalText": "• ultra v2 output rules → +23%\n• caveman-shrink tool-results → +14% prose\n• Injected-ruleset trim → −2 to −8%/session\n• 3-axis measurement harness\n• Test-isolation & stale-count fixes",
+      "fontSize": 14, "fontFamily": 3, "textAlign": "left", "verticalAlign": "top",
+      "strokeColor": "#4c1d95", "backgroundColor": "transparent", "fillStyle": "solid",
+      "strokeWidth": 1, "strokeStyle": "solid", "roughness": 0, "opacity": 100, "angle": 0,
+      "seed": 300031, "version": 1, "versionNonce": 300032, "isDeleted": false, "groupIds": [],
+      "boundElements": null, "link": null, "locked": false, "containerId": null, "lineHeight": 1.5
+    }
+  ],
+  "appState": { "viewBackgroundColor": "#ffffff", "gridSize": 20 },
+  "files": {}
+}

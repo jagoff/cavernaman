@@ -10,6 +10,9 @@ evals/snapshots/*.html
 evals/snapshots/*.png
 context/refs/research-brief-caveman-code-efficiency.md
 
+# Local tool state (synapse federation)
+.synapse/
+
 # Build artifacts
 dist/*
 !dist/caveman.skill

@@ -1,0 +1,134 @@
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "https://github.com/jagoff/cavernaman",
+  "elements": [
+    {
+      "type": "text", "id": "title", "x": 60, "y": 40, "width": 760, "height": 36,
+      "text": "Same fix. Same brain. Smaller mouth.", "originalText": "Same fix. Same brain. Smaller mouth.",
+      "fontSize": 28, "fontFamily": 3, "textAlign": "left", "verticalAlign": "top",
+      "strokeColor": "#1e40af", "backgroundColor": "transparent", "fillStyle": "solid",
+      "strokeWidth": 1, "strokeStyle": "solid", "roughness": 0, "opacity": 100, "angle": 0,
+      "seed": 100001, "version": 1, "versionNonce": 100002, "isDeleted": false, "groupIds": [],
+      "boundElements": null, "link": null, "locked": false, "containerId": null, "lineHeight": 1.25
+    },
+    {
+      "type": "text", "id": "subtitle", "x": 60, "y": 84, "width": 760, "height": 22,
+      "text": "Real example: \"why does my React component re-render?\"", "originalText": "Real example: \"why does my React component re-render?\"",
+      "fontSize": 16, "fontFamily": 3, "textAlign": "left", "verticalAlign": "top",
+      "strokeColor": "#64748b", "backgroundColor": "transparent", "fillStyle": "solid",
+      "strokeWidth": 1, "strokeStyle": "solid", "roughness": 0, "opacity": 100, "angle": 0,
+      "seed": 100003, "version": 1, "versionNonce": 100004, "isDeleted": false, "groupIds": [],
+      "boundElements": null, "link": null, "locked": false, "containerId": null, "lineHeight": 1.25
+    },
+
+    {
+      "type": "text", "id": "lbl_normal", "x": 60, "y": 168, "width": 160, "height": 22,
+      "text": "Normal Claude", "originalText": "Normal Claude",
+      "fontSize": 18, "fontFamily": 3, "textAlign": "left", "verticalAlign": "middle",
+      "strokeColor": "#1e3a5f", "backgroundColor": "transparent", "fillStyle": "solid",
+      "strokeWidth": 1, "strokeStyle": "solid", "roughness": 0, "opacity": 100, "angle": 0,
+      "seed": 100005, "version": 1, "versionNonce": 100006, "isDeleted": false, "groupIds": [],
+      "boundElements": null, "link": null, "locked": false, "containerId": null, "lineHeight": 1.25
+    },
+    {
+      "type": "rectangle", "id": "bar_normal", "x": 240, "y": 155, "width": 483, "height": 48,
+      "strokeColor": "#1e3a5f", "backgroundColor": "#3b82f6", "fillStyle": "solid",
+      "strokeWidth": 2, "strokeStyle": "solid", "roughness": 0, "opacity": 100, "angle": 0,
+      "seed": 100007, "version": 1, "versionNonce": 100008, "isDeleted": false, "groupIds": [],
+      "boundElements": [{"id": "bar_normal_t", "type": "text"}], "link": null, "locked": false, "roundness": {"type": 3}
+    },
+    {
+      "type": "text", "id": "bar_normal_t", "x": 250, "y": 168, "width": 200, "height": 22,
+      "text": "69 tokens", "originalText": "69 tokens",
+      "fontSize": 16, "fontFamily": 3, "textAlign": "left", "verticalAlign": "middle",
+      "strokeColor": "#ffffff", "backgroundColor": "transparent", "fillStyle": "solid",
+      "strokeWidth": 1, "strokeStyle": "solid", "roughness": 0, "opacity": 100, "angle": 0,
+      "seed": 100009, "version": 1, "versionNonce": 100010, "isDeleted": false, "groupIds": [],
+      "boundElements": null, "link": null, "locked": false, "containerId": "bar_normal", "lineHeight": 1.25
+    },
+
+    {
+      "type": "text", "id": "lbl_cave", "x": 60, "y": 268, "width": 160, "height": 22,
+      "text": "Cavernaman", "originalText": "Cavernaman",
+      "fontSize": 18, "fontFamily": 3, "textAlign": "left", "verticalAlign": "middle",
+      "strokeColor": "#047857", "backgroundColor": "transparent", "fillStyle": "solid",
+      "strokeWidth": 1, "strokeStyle": "solid", "roughness": 0, "opacity": 100, "angle": 0,
+      "seed": 100011, "version": 1, "versionNonce": 100012, "isDeleted": false, "groupIds": [],
+      "boundElements": null, "link": null, "locked": false, "containerId": null, "lineHeight": 1.25
+    },
+    {
+      "type": "rectangle", "id": "bar_cave", "x": 240, "y": 255, "width": 133, "height": 48,
+      "strokeColor": "#047857", "backgroundColor": "#a7f3d0", "fillStyle": "solid",
+      "strokeWidth": 2, "strokeStyle": "solid", "roughness": 0, "opacity": 100, "angle": 0,
+      "seed": 100013, "version": 1, "versionNonce": 100014, "isDeleted": false, "groupIds": [],
+      "boundElements": [{"id": "bar_cave_t", "type": "text"}], "link": null, "locked": false, "roundness": {"type": 3}
+    },
+    {
+      "type": "text", "id": "bar_cave_t", "x": 250, "y": 268, "width": 110, "height": 22,
+      "text": "19 tokens", "originalText": "19 tokens",
+      "fontSize": 16, "fontFamily": 3, "textAlign": "left", "verticalAlign": "middle",
+      "strokeColor": "#065f46", "backgroundColor": "transparent", "fillStyle": "solid",
+      "strokeWidth": 1, "strokeStyle": "solid", "roughness": 0, "opacity": 100, "angle": 0,
+      "seed": 100015, "version": 1, "versionNonce": 100016, "isDeleted": false, "groupIds": [],
+      "boundElements": null, "link": null, "locked": false, "containerId": "bar_cave", "lineHeight": 1.25
+    },
+    {
+      "type": "text", "id": "saved", "x": 400, "y": 264, "width": 320, "height": 30,
+      "text": "↓ 72% fewer tokens", "originalText": "↓ 72% fewer tokens",
+      "fontSize": 22, "fontFamily": 3, "textAlign": "left", "verticalAlign": "middle",
+      "strokeColor": "#c2410c", "backgroundColor": "transparent", "fillStyle": "solid",
+      "strokeWidth": 1, "strokeStyle": "solid", "roughness": 0, "opacity": 100, "angle": 0,
+      "seed": 100017, "version": 1, "versionNonce": 100018, "isDeleted": false, "groupIds": [],
+      "boundElements": null, "link": null, "locked": false, "containerId": null, "lineHeight": 1.25
+    },
+
+    {
+      "type": "rectangle", "id": "ev_normal", "x": 60, "y": 360, "width": 360, "height": 150,
+      "strokeColor": "#475569", "backgroundColor": "#1e293b", "fillStyle": "solid",
+      "strokeWidth": 1, "strokeStyle": "solid", "roughness": 0, "opacity": 100, "angle": 0,
+      "seed": 100019, "version": 1, "versionNonce": 100020, "isDeleted": false, "groupIds": [],
+      "boundElements": [{"id": "ev_normal_t", "type": "text"}], "link": null, "locked": false, "roundness": {"type": 3}
+    },
+    {
+      "type": "text", "id": "ev_normal_t", "x": 76, "y": 376, "width": 328, "height": 118,
+      "text": "\"The reason your React component\nis re-rendering is likely because\nyou're creating a new object\nreference on each render cycle.\nWhen you pass an inline object\nas a prop... I'd recommend useMemo.\"",
+      "originalText": "\"The reason your React component\nis re-rendering is likely because\nyou're creating a new object\nreference on each render cycle.\nWhen you pass an inline object\nas a prop... I'd recommend useMemo.\"",
+      "fontSize": 13, "fontFamily": 3, "textAlign": "left", "verticalAlign": "top",
+      "strokeColor": "#cbd5e1", "backgroundColor": "transparent", "fillStyle": "solid",
+      "strokeWidth": 1, "strokeStyle": "solid", "roughness": 0, "opacity": 100, "angle": 0,
+      "seed": 100021, "version": 1, "versionNonce": 100022, "isDeleted": false, "groupIds": [],
+      "boundElements": null, "link": null, "locked": false, "containerId": "ev_normal", "lineHeight": 1.25
+    },
+
+    {
+      "type": "rectangle", "id": "ev_cave", "x": 460, "y": 360, "width": 360, "height": 150,
+      "strokeColor": "#047857", "backgroundColor": "#1e293b", "fillStyle": "solid",
+      "strokeWidth": 1, "strokeStyle": "solid", "roughness": 0, "opacity": 100, "angle": 0,
+      "seed": 100023, "version": 1, "versionNonce": 100024, "isDeleted": false, "groupIds": [],
+      "boundElements": [{"id": "ev_cave_t", "type": "text"}], "link": null, "locked": false, "roundness": {"type": 3}
+    },
+    {
+      "type": "text", "id": "ev_cave_t", "x": 476, "y": 400, "width": 328, "height": 70,
+      "text": "\"New object ref each render.\nInline object prop = new ref\n= re-render. Wrap in useMemo.\"",
+      "originalText": "\"New object ref each render.\nInline object prop = new ref\n= re-render. Wrap in useMemo.\"",
+      "fontSize": 15, "fontFamily": 3, "textAlign": "left", "verticalAlign": "middle",
+      "strokeColor": "#6ee7b7", "backgroundColor": "transparent", "fillStyle": "solid",
+      "strokeWidth": 1, "strokeStyle": "solid", "roughness": 0, "opacity": 100, "angle": 0,
+      "seed": 100025, "version": 1, "versionNonce": 100026, "isDeleted": false, "groupIds": [],
+      "boundElements": null, "link": null, "locked": false, "containerId": "ev_cave", "lineHeight": 1.25
+    },
+    {
+      "type": "text", "id": "footnote", "x": 60, "y": 528, "width": 760, "height": 20,
+      "text": "Token counts from the Claude API. Full benchmark set: avg 65% output reduction across 10 prompts.",
+      "originalText": "Token counts from the Claude API. Full benchmark set: avg 65% output reduction across 10 prompts.",
+      "fontSize": 13, "fontFamily": 3, "textAlign": "left", "verticalAlign": "top",
+      "strokeColor": "#94a3b8", "backgroundColor": "transparent", "fillStyle": "solid",
+      "strokeWidth": 1, "strokeStyle": "solid", "roughness": 0, "opacity": 100, "angle": 0,
+      "seed": 100027, "version": 1, "versionNonce": 100028, "isDeleted": false, "groupIds": [],
+      "boundElements": null, "link": null, "locked": false, "containerId": null, "lineHeight": 1.25
+    }
+  ],
+  "appState": { "viewBackgroundColor": "#ffffff", "gridSize": 20 },
+  "files": {}
+}
