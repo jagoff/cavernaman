@@ -27,6 +27,7 @@ import tiktoken
 ROOT = Path(__file__).resolve().parents[1]
 ENCODING = tiktoken.get_encoding("o200k_base")
 DOCS = ["CLAUDE.md", "AGENTS.md", "GEMINI.md"]
+BASELINE_REF = os.environ.get("CAVEMAN_BENCH_BASELINE", "HEAD^")
 
 
 def token_count(text: str) -> int:
@@ -39,7 +40,7 @@ def current_text(rel_path: str) -> str:
 
 def head_text(rel_path: str) -> str:
     return subprocess.check_output(
-        ["git", "show", f"HEAD:{rel_path}"],
+        ["git", "show", f"{BASELINE_REF}:{rel_path}"],
         cwd=ROOT,
         text=True,
         encoding="utf-8",
