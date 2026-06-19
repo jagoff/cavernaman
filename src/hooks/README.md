@@ -17,7 +17,7 @@ If you installed caveman standalone (without the plugin), the unified Node insta
 
 - Fires on every user prompt, checks for `/caveman` commands and natural-language activation/deactivation phrases ("talk like caveman", "stop caveman", "normal mode")
 - Writes the active mode to the flag file when a caveman command is detected; deletes it on deactivation
-- Emits a small per-turn reinforcement reminder when the flag is set to a non-independent mode (`lite`/`full`/`ultra`/`wenyan*`)
+- Keeps the mode flag in sync with user commands and `/caveman-stats`
 - Supports: `lite`, `full`, `ultra`, `wenyan`, `wenyan-lite`, `wenyan-full`, `wenyan-ultra`, `commit`, `review`, `compress`
 
 ### `caveman-statusline.sh` / `caveman-statusline.ps1` — Statusline badge script

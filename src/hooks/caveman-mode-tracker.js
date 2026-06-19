@@ -6,7 +6,7 @@ const fs = require('fs');
 const path = require('path');
 const os = require('os');
 const { execFileSync } = require('child_process');
-const { getDefaultMode, safeWriteFlag, readFlag, VALID_MODES } = require('./caveman-config');
+const { getDefaultMode, safeWriteFlag, VALID_MODES } = require('./caveman-config');
 
 // Modes handled by their own slash commands (/caveman-commit, etc.) — not
 // selectable via /caveman <arg>.
@@ -105,28 +105,6 @@ process.stdin.on('end', () => {
       try { fs.unlinkSync(flagPath); } catch (e) {}
     }
 
-    // Per-turn reinforcement: emit a structured reminder when caveman is active.
-    // The SessionStart hook injects the full ruleset once, but models lose it
-    // when other plugins inject competing style instructions every turn.
-    // This keeps caveman visible in the model's attention on every user message.
-    //
-    // Skip independent modes (commit, review, compress) — they have their own
-    // skill behavior and the base caveman rules would conflict.
-    // readFlag enforces symlink-safe read + size cap + VALID_MODES whitelist.
-    // If the flag is missing, corrupted, oversized, or a symlink pointing at
-    // something like ~/.ssh/id_rsa, readFlag returns null and we emit nothing
-    // — never inject untrusted bytes into model context.
-    const activeMode = readFlag(flagPath);
-    if (activeMode && !INDEPENDENT_MODES.has(activeMode)) {
-      process.stdout.write(JSON.stringify({
-        hookSpecificOutput: {
-          hookEventName: "UserPromptSubmit",
-          additionalContext: "Cavernaman ON (" + activeMode + "). " +
-            "Drop articles/filler/hedging, fragments OK. " +
-            "Code/commits/security normal."
-        }
-      }));
-    }
   } catch (e) {
     // Silent fail
   }

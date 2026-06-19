@@ -150,7 +150,7 @@ function safeWriteFlag(flagPath, content) {
 //
 // Without this, a local attacker with write access to ~/.claude/ could replace
 // the flag with a symlink to ~/.ssh/id_rsa (or any user-readable secret). Every
-// reader — statusline, per-turn reinforcement — would slurp that content and
+// reader — statusline or other consumers — would slurp that content and
 // either echo it to the terminal or inject it into model context.
 //
 // MAX_FLAG_BYTES is a hard cap. The longest legitimate value is "wenyan-ultra"
