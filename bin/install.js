@@ -35,6 +35,7 @@ const MCP_SHRINK_PKG = 'caveman-shrink';
 const HOOK_FILES = [
   'package.json',
   'caveman-config.js',
+  'caveman-session-prompt.js',
   'caveman-activate.js',
   'caveman-mode-tracker.js',
   'caveman-stats.js',

@@ -10,8 +10,9 @@ If you installed caveman standalone (without the plugin), the unified Node insta
 
 - Runs once when Claude Code starts
 - Writes `full` to `$CLAUDE_CONFIG_DIR/.caveman-active` (default `~/.claude/.caveman-active`) via the symlink-safe `safeWriteFlag` helper
-- Emits caveman rules as hidden SessionStart context
+- Emits the compiled caveman session prompt as hidden SessionStart context
 - Detects missing statusline config and emits setup nudge (Claude will offer to help)
+- Uses `caveman-session-prompt.js` for the compact prompt body
 
 ### `caveman-mode-tracker.js` — UserPromptSubmit hook
 
@@ -106,6 +107,6 @@ node bin/install.js --uninstall
 ```
 
 Or manually:
-1. Remove the caveman hook files from `$CLAUDE_CONFIG_DIR/hooks/` (default `~/.claude/hooks/`): `caveman-activate.js`, `caveman-mode-tracker.js`, `caveman-stats.js`, `caveman-config.js`, and `caveman-statusline.{sh,ps1}`.
+1. Remove the caveman hook files from `$CLAUDE_CONFIG_DIR/hooks/` (default `~/.claude/hooks/`): `caveman-activate.js`, `caveman-session-prompt.js`, `caveman-mode-tracker.js`, `caveman-stats.js`, `caveman-config.js`, and `caveman-statusline.{sh,ps1}`.
 2. Remove the SessionStart, UserPromptSubmit, and statusLine entries from `$CLAUDE_CONFIG_DIR/settings.json`.
 3. Delete `$CLAUDE_CONFIG_DIR/.caveman-active` (and `$CLAUDE_CONFIG_DIR/.caveman-statusline-suffix` if you ran `/caveman-stats`).

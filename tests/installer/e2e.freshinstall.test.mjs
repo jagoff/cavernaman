@@ -105,6 +105,7 @@ test('fresh install populates hooks dir and settings.json (skipped without `clau
 
     const hooks = path.join(dir, 'hooks');
     assert.ok(fs.existsSync(path.join(hooks, 'caveman-activate.js')),     'caveman-activate.js missing');
+    assert.ok(fs.existsSync(path.join(hooks, 'caveman-session-prompt.js')), 'caveman-session-prompt.js missing');
     assert.ok(fs.existsSync(path.join(hooks, 'caveman-mode-tracker.js')), 'caveman-mode-tracker.js missing');
     assert.ok(fs.existsSync(path.join(hooks, 'caveman-config.js')),       'caveman-config.js missing');
     assert.ok(fs.existsSync(path.join(hooks, 'package.json')),            'hooks/package.json (CJS marker) missing');
@@ -175,6 +176,7 @@ test('uninstall strips caveman hooks but preserves user-authored ones (skipped w
       for (const f of ['caveman-activate.js', 'caveman-mode-tracker.js', 'caveman-config.js', STATUSLINE_FILE]) {
         assert.equal(fs.existsSync(path.join(hooks, f)), false, `${f} should be removed`);
       }
+      assert.equal(fs.existsSync(path.join(hooks, 'caveman-session-prompt.js')), false, 'caveman-session-prompt.js should be removed');
     }
 
     // Settings cleaned up.

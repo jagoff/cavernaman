@@ -169,6 +169,7 @@ def verify_manifests_and_syntax() -> None:
         read_json(path)
 
     run(["node", "--check", "src/hooks/caveman-config.js"])
+    run(["node", "--check", "src/hooks/caveman-session-prompt.js"])
     run(["node", "--check", "src/hooks/caveman-activate.js"])
     run(["node", "--check", "src/hooks/caveman-mode-tracker.js"])
     run(["node", "--check", "bin/install.js"])
@@ -181,7 +182,9 @@ def verify_manifests_and_syntax() -> None:
     install_sh = (ROOT / "src/hooks/install.sh").read_text(encoding="utf-8")
     uninstall_sh = (ROOT / "src/hooks/uninstall.sh").read_text(encoding="utf-8")
     ensure("caveman-config.js" in install_sh, "install.sh missing caveman-config.js")
+    ensure("caveman-session-prompt.js" in install_sh, "install.sh missing caveman-session-prompt.js")
     ensure("caveman-config.js" in uninstall_sh, "uninstall.sh missing caveman-config.js")
+    ensure("caveman-session-prompt.js" in uninstall_sh, "uninstall.sh missing caveman-session-prompt.js")
 
     print("JSON manifests and JS/bash syntax OK")
 
@@ -193,7 +196,9 @@ def verify_powershell_static() -> None:
     statusline_text = (ROOT / "src/hooks/caveman-statusline.ps1").read_text(encoding="utf-8")
 
     ensure("caveman-config.js" in install_text, "install.ps1 missing caveman-config.js")
+    ensure("caveman-session-prompt.js" in install_text, "install.ps1 missing caveman-session-prompt.js")
     ensure("caveman-config.js" in uninstall_text, "uninstall.ps1 missing caveman-config.js")
+    ensure("caveman-session-prompt.js" in uninstall_text, "uninstall.ps1 missing caveman-session-prompt.js")
     ensure("caveman-statusline.ps1" in install_text, "install.ps1 missing statusline.ps1")
     ensure("caveman-statusline.ps1" in uninstall_text, "uninstall.ps1 missing statusline.ps1")
     ensure("-AsHashtable" not in install_text, "install.ps1 should stay compatible with Windows PowerShell 5.1")

@@ -10,6 +10,12 @@ const fs = require('fs');
 const path = require('path');
 const os = require('os');
 const { getDefaultMode, safeWriteFlag } = require('./caveman-config');
+let getSessionPrompt = null;
+try {
+  ({ getSessionPrompt } = require('./caveman-session-prompt'));
+} catch (e) {
+  // Standalone fallback path still works without the compiled helper.
+}
 
 const claudeDir = process.env.CLAUDE_CONFIG_DIR || path.join(os.homedir(), '.claude');
 const flagPath = path.join(claudeDir, '.cavernaman-active');
@@ -27,13 +33,8 @@ if (mode === 'off') {
 // 1. Write flag file (symlink-safe)
 safeWriteFlag(flagPath, mode);
 
-// 2. Emit full caveman ruleset, filtered to the active intensity level.
-//    The old 2-sentence summary was too weak — models drifted back to verbose
-//    mid-conversation, especially after context compression pruned it away.
-//    Full rules with examples anchor behavior much more reliably.
-//
-//    Reads SKILL.md at runtime so edits to the source of truth propagate
-//    automatically — no hardcoded duplication to go stale.
+// 2. Emit the compiled caveman ruleset for the active intensity level.
+//    Keep it short: this text stays in the session context every turn.
 
 // Modes that have their own independent skill files — not caveman intensity levels.
 // For these, emit a short activation line; the skill itself handles behavior.
@@ -47,89 +48,20 @@ if (INDEPENDENT_MODES.has(mode)) {
 // Resolve the canonical label for wenyan alias
 const modeLabel = mode === 'wenyan' ? 'wenyan-full' : mode;
 
-// Read SKILL.md — the single source of truth for caveman behavior.
-// Plugin installs: __dirname = <plugin_root>/hooks/, SKILL.md at <plugin_root>/skills/cavernaman/SKILL.md
-// Standalone installs: __dirname = $CLAUDE_CONFIG_DIR/hooks/, SKILL.md won't exist — falls back to hardcoded rules.
-let skillContent = '';
-try {
-  skillContent = fs.readFileSync(
-    path.join(__dirname, '..', 'skills', 'cavernaman', 'SKILL.md'), 'utf8'
-  );
-} catch (e) { /* standalone install — will use fallback below */ }
-
 let output;
 
-if (skillContent) {
-  // Strip YAML frontmatter
-  const body = skillContent.replace(/^---[\s\S]*?---\s*/, '');
-
-  // Filter intensity table: keep header rows + only the active level's row
-  const filtered = body.split('\n').reduce((acc, line) => {
-    // Intensity table rows start with | **level** |
-    const tableRowMatch = line.match(/^\|\s*\*\*(\S+?)\*\*\s*\|/);
-    if (tableRowMatch) {
-      // Keep only the active level's row (and always keep header/separator)
-      if (tableRowMatch[1] === modeLabel) {
-        acc.push(line);
-      }
-      return acc;
-    }
-
-    // Example lines start with "- level:" — keep only lines matching active level
-    const exampleMatch = line.match(/^- (\S+?):\s/);
-    if (exampleMatch) {
-      if (exampleMatch[1] === modeLabel) {
-        acc.push(line);
-      }
-      return acc;
-    }
-
-    acc.push(line);
-    return acc;
-  }, []);
-
-  // Trim scaffolding the per-level filter leaves behind (recurring input cost):
-  //   - the intensity table header + |---| separator are meaningless once only
-  //     the single active row survives;
-  //   - an "Example —" header is orphaned when its level bullets were filtered
-  //     out (e.g. an example with no lite/wenyan variant).
-  // Mirror any change here in evals/llm_run.py filter_skill_to_level.
-  const cleaned = [];
-  for (let i = 0; i < filtered.length; i++) {
-    const line = filtered[i];
-    if (/^\| Level \| What change \|/.test(line)) continue;
-    if (/^\|[-:\s|]+\|\s*$/.test(line)) continue;
-    if (/^Example —/.test(line)) {
-      let hasBullet = false;
-      for (let j = i + 1; j < filtered.length; j++) {
-        if (/^- /.test(filtered[j])) { hasBullet = true; break; }
-        if (filtered[j].trim() === '' || /^#/.test(filtered[j]) || /^Example —/.test(filtered[j])) break;
-      }
-      if (!hasBullet) continue;
-    }
-    cleaned.push(line);
-  }
-
-  output = 'CAVERNAMAN MODE ACTIVE — level: ' + modeLabel + '\n\n' + cleaned.join('\n');
-} else {
-  // Fallback when SKILL.md is not found (standalone hook install without skills dir).
-  // This is the minimum viable ruleset — better than nothing.
+try {
+  output = getSessionPrompt(modeLabel);
+} catch (e) {
+  // Fallback when the compiled prompt helper is not available.
   output =
     'CAVERNAMAN MODE ACTIVE — level: ' + modeLabel + '\n\n' +
-    'Respond terse like smart cavernaman. All technical substance stay. Only fluff die.\n\n' +
-    '## Persistence\n\n' +
-    'ACTIVE EVERY RESPONSE. No revert after many turns. No filler drift. Still active if unsure. Off only: "stop cavernaman" / "normal mode".\n\n' +
-    'Current level: **' + modeLabel + '**. Switch: `/cavernaman lite|full|ultra`.\n\n' +
-    '## Rules\n\n' +
-    'Drop: articles (a/an/the), filler (just/really/basically/actually/simply), pleasantries (sure/certainly/of course/happy to), hedging. ' +
-    'Fragments OK. Short synonyms (big not extensive, fix not "implement a solution for"). Technical terms exact. Code blocks unchanged. Errors quoted exact.\n\n' +
-    'Pattern: `[thing] [action] [reason]. [next step].`\n\n' +
-    'Not: "Sure! I\'d be happy to help you with that. The issue you\'re experiencing is likely caused by..."\n' +
-    'Yes: "Bug in auth middleware. Token expiry check use `<` not `<=`. Fix:"\n\n' +
-    '## Auto-Clarity\n\n' +
-    'Drop cavernaman for: security warnings, irreversible action confirmations, multi-step sequences where fragment order risks misread, user asks to clarify or repeats question. Resume cavernaman after clear part done.\n\n' +
-    '## Boundaries\n\n' +
-    'Code/commits/PRs: write normal. "stop cavernaman" or "normal mode": revert. Level persist until changed or session end.';
+    'Respond terse, technical, no fluff.\n\n' +
+    'Persistence: active every response until user says "stop cavernaman" or "normal mode".\n\n' +
+    `Current level: **${modeLabel}**. Switch: /cavernaman lite|full|ultra.\n\n` +
+    'Rules: keep substance; drop filler, hedging, pleasantries. Fragments OK. Exact code and errors. Code/commits/PRs stay normal.\n\n' +
+    'Auto-Clarity: switch to normal for security, irreversible action, or multi-step ambiguity, then resume.\n\n' +
+    'Boundaries: stop only on "stop cavernaman" or "normal mode".';
 }
 
 // 3. Detect missing statusline config — nudge Claude to help set it up
@@ -152,11 +84,9 @@ try {
     const statusLineSnippet =
       '"statusLine": { "type": "command", "command": ' + JSON.stringify(command) + ' }';
     output += "\n\n" +
-      "STATUSLINE SETUP NEEDED: The caveman plugin includes a statusline badge showing active mode " +
-      "(e.g. [CAVERNAMAN], [CAVERNAMAN:ULTRA]). It is not configured yet. " +
-      "To enable, add this to " + path.join(claudeDir, 'settings.json') + ": " +
-      statusLineSnippet + " " +
-      "Proactively offer to set this up for the user on first interaction.";
+      "STATUSLINE SETUP NEEDED: add a statusLine command for the caveman badge. " +
+      "Add this to " + path.join(claudeDir, 'settings.json') + ": " +
+      statusLineSnippet + ". Offer to set it up.";
   }
 } catch (e) {
   // Silent fail — don't block session start over statusline detection

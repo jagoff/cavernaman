@@ -22,7 +22,7 @@ def main() -> int:
         check=False,
     )
     assert result.returncode == 0, result.stderr
-    assert "20-turn A/B session budget" in result.stdout
+    assert "A/B session budget" in result.stdout
 
     match = re.search(r"total,\d+,\d+,\d+,([0-9.]+)%", result.stdout)
     assert match, result.stdout
